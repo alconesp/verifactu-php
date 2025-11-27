@@ -29,6 +29,12 @@ abstract class InvoiceRecord extends Model
      */
     protected $invoiceId;
 
+   /**
+     * Total invoice amount (ImporteTotal). Final total to be paid for the invoice.
+     * @var float
+     */
+    public $totalAmount;
+
     /**
      * External reference (RefExterna, optional).
      * @var string
@@ -229,6 +235,15 @@ abstract class InvoiceRecord extends Model
         return [
             [['versionId', 'invoiceId', 'chaining', 'systemInfo', 'recordTimestamp', 'hashType'], 'required'],
             [['versionId', 'recordTimestamp', 'hash', 'externalRef', 'xmlSignature'], 'string'],
+            [
+                'totalAmount', function ($value): bool|string {
+                    if ($value === null) {
+                        return true;
+                    }
+
+                    return (is_float($value) || is_int($value)) ? true : 'Must be a number.';
+                }
+            ],
             ['invoiceId', fn($value): bool|string => ($value instanceof InvoiceId) ? true : 'Must be an instance of InvoiceId.'],
             ['chaining', fn($value): bool|string => ($value instanceof Chaining) ? true : 'Must be an instance of Chaining.'],
             ['systemInfo', fn($value): bool|string => ($value instanceof ComputerSystem) ? true : 'Must be an instance of ComputerSystem.'],

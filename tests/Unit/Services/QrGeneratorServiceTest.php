@@ -32,7 +32,7 @@ class QrGeneratorServiceTest extends TestCase
 
         // Set up the mock InvoiceRecord
         $mockInvoiceRecord->method('getInvoiceId')->willReturn($invoiceId);
-        $mockInvoiceRecord->hash = 'abcdef1234567890';
+        $mockInvoiceRecord->totalAmount = 30.28;
 
         // Use reflection to access the protected method
         $reflectionClass = new \ReflectionClass(QrGeneratorService::class);
@@ -46,9 +46,9 @@ class QrGeneratorServiceTest extends TestCase
         // Verify the result
         $expectedParams = http_build_query([
             'nif' => 'B12345678',
-            'num' => 'FACT-001',
+            'numserie' => 'FACT-001',
             'fecha' => '2023-01-01',
-            'huella' => 'abcdef1234567890',
+            'importe' => 30.28
         ]);
         $expected = $baseUrl . '?' . $expectedParams;
 
