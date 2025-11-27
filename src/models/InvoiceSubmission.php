@@ -146,12 +146,6 @@ class InvoiceSubmission extends InvoiceRecord
     public $taxAmount;
 
     /**
-     * Total invoice amount (ImporteTotal). Final total to be paid for the invoice.
-     * @var float
-     */
-    public $totalAmount;
-
-    /**
      * Invoice agreement registration number (NumRegistroAcuerdoFacturacion, optional).
      * @var string|null
      */

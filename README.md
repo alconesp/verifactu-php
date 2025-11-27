@@ -419,8 +419,10 @@ use eseperio\verifactu\services\QrGeneratorService;
 use eseperio\verifactu\models\InvoiceRecord;
 use eseperio\verifactu\models\InvoiceSubmission;
 
-// Assuming you already have a valid InvoiceSubmission or InvoiceCancellation object
-// that has been submitted to AEAT and has a CSV
+// Assuming you already have a valid InvoiceSubmission or InvoiceCancellation object (totalAmount is also needed
+// if you want to create a QR from InvoiceCancelation) that has been submitted to AEAT and has a CSV
+// The link created for an InvoiceCancellation will not show you a valid page because the related invoice
+// has been canceled. Consider to create QR codes only from InvoiceSubmission to avoid issues
 
 // Basic usage (returns raw image data using GD renderer)
 $qrData = Verifactu::generateInvoiceQr($invoice);
